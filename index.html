@@ -1,1 +1,141 @@
-hello
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f7f7f7;
+            font-family: 'Arial', sans-serif;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 400px;
+            padding: 30px;
+            border-radius: 15px;
+            background-color: white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px); /* Raise the card slightly when hovered */
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
+        }
+
+        .card-title {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-label {
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        input[type="date"] {
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 16px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        input[type="date"]:focus {
+            outline: none;
+            box-shadow: 0 0 5px rgba(100, 100, 255, 0.8);
+        }
+
+        button {
+            background-color: #007bff !important; /* Blue button */
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            color: white; /* Ensure text is white */
+        }
+
+        button:hover {
+            background-color: #0056b3 !important; /* Darker blue on hover */
+            
+        }
+        .btn:hover{
+            color: white;
+        }
+
+        .result {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .btn{
+            color: white;
+        }
+
+        .result h4 {
+            font-size: 22px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h3 class="card-title">Age Calculator</h3>
+        <form id="ageForm">
+            <div class="mb-3">
+                <label for="birthDate" class="form-label">Enter Your Birth Date</label>
+                <input type="date" class="form-control" id="birthDate" required>
+            </div>
+            <button type="submit" class="btn">Calculate Age</button>
+        </form>
+        <div id="ageResult" class="result" style="display: none;">
+            <h4>Your Age: <span id="age"></span> years</h4>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('ageForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get the birthdate from the input
+            var birthDate = new Date(document.getElementById('birthDate').value);
+            if (!birthDate.getTime()) {
+                alert('Please enter a valid birth date.');
+                return;
+            }
+
+            // Get the current date
+            var today = new Date();
+            var age = today.getFullYear() - birthDate.getFullYear();
+            var m = today.getMonth() - birthDate.getMonth();
+
+            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+
+            // Show the result
+            document.getElementById('age').textContent = age;
+            document.getElementById('ageResult').style.display = 'block';
+        });
+    </script>
+
+</body>
+</html>
